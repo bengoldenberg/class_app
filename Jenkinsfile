@@ -72,19 +72,20 @@ pipeline {
                 string(name: 'file', defaultValue:'values.yaml',description: 'the value file of helm chart')}
                 }
             steps{
-            @namespace == 'dev'
+                script{
+            namespace = 'dev'
             create_namespace(namespace)
             sh ""
                 script: 'helm upgrade --install --wait ${params.name} ${params.chart_name} -f ${params.file}  --namespace $namespace'
 
-            }
+            }}
         }
         stage('Dev tests'){
             parallel {
                 stage('Curl get_method')
                 {
                     steps {
-                    @is_ok == check_get_curl(${path})
+                    is_ok = check_get_curl(${path})
                     echo "the get method is working ${is_ok}"   
                                  
                           }
