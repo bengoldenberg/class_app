@@ -1,0 +1,4 @@
+replicas: 1
+env: 'Dev'
+name: 'school-app'
+service_name: 'school-app'

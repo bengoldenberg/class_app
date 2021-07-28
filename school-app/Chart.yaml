@@ -1,0 +1,5 @@
+apiVersion: v2
+name: school
+description: A Helm chart for ben application
+version: 0.1.0
+appVersion: "1.1.0"

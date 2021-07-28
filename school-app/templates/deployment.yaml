@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: school-app
+  labels:
+    app: school
+    env: {{ .Values.env }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: school
+      env: {{ .Values.env }}
+  template:
+    metadata:
+      labels:
+        app: school
+        env: {{ .Values.env}}
+    spec:
+      containers:
+      - name: school
+        image: 207457565/school:class
+        ports:
+        - containerPort: 80

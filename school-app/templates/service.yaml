@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service_name }}
+  labels:
+    app: school
+    env: {{ .Values.env }}
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    name: school
+  selector:
+    app: school
+  type: LoadBalancer
