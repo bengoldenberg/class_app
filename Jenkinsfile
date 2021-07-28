@@ -66,10 +66,11 @@ pipeline {
         stage('deploy to dev'){
             input{
                 message "please insert the value file"
-                parameters[
-                string(name: 'name', defaultValue:'',description: 'the name you want to give'),
-                string(name: 'chart_name', defaultValue:'', description:'the chart name'),
-                string(name: 'file', defaultValue:'values.yaml',description: 'the value file of helm chart')]}
+                parameters{
+                string(name: 'name', defaultValue:'',description: 'the name you want to give')
+                string(name: 'chart_name', defaultValue:'', description:'the chart name')
+                string(name: 'file', defaultValue:'values.yaml',description: 'the value file of helm chart')}
+                }
             steps{
             namespace = 'dev'
             create_namespace(namespace)
