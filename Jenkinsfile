@@ -50,7 +50,7 @@ echo ${ok}
 pipeline {
     agent 
     {
-        lable 'linux'
+        label 'linux'
     }
 
     environment {
