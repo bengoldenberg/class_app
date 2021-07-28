@@ -4,7 +4,7 @@ echo "Creating namespace ${namespace} if needed"
     sh "[ ! -z \"\$(kubectl get ns ${namespace} -o name 2>/dev/null)\" ] || kubectl create ns ${namespace}"
 }
 
-def check_get_curl()
+def check_get_curl(path)
 {
 result = curl -s -w %{http_code}} "${path}/school/students"
 script{
@@ -16,7 +16,7 @@ echo ${ok}
 }
 
 }
-def check_post_curl()
+def check_post_curl(path)
 {
 result = curl -d "{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}" -H "Content-Type: application/json" -s -w %{http_code}} "${path}/school/students"
 script{
@@ -27,7 +27,7 @@ else{
 echo ${ok}   
 }
 }
-def check_put_curl()
+def check_put_curl(path)
 {
 result = curl -s -w %{http_code}} -X PUT "${path}/school/students/2/6"
 script{
@@ -76,7 +76,7 @@ pipeline {
                 stage('Curl get_method')
                 {
                     steps {
-                    is_ok =check_get_curl()
+                    is_ok =check_get_curl(${path})
                     echo "the get method is working ${is_ok}"   
                                  
                           }
@@ -84,14 +84,14 @@ pipeline {
                 stage('curl post_method')
                 {
                     steps{
-                    is_post_ok = check_post_curl()
+                    is_post_ok = check_post_curl(${path})
                     echo "the post method is working ${is_post_ok}"
                          }
                 }
                 stage('curl put_method')
                 {
                     steps{
-                    is_put_ok = check_put_curl()
+                    is_put_ok = check_put_curl(${path})
                     echo "the put method is working ${is_post_ok}"
                     }
                 }
