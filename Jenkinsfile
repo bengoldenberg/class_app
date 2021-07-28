@@ -6,7 +6,9 @@ echo "Creating namespace ${namespace} if needed"
 
 def check_get_curl(path)
 {
-result = curl -s -w %{http_code}} "path/school/students"
+def result = sh (
+                returnStdout: true,
+                script: 'curl -s -w %{http_code}} "${path}/school/students"'
 script{
 if (result.contain(200)){
     ok = "Ok"}
