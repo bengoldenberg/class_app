@@ -85,24 +85,27 @@ pipeline {
                 stage('Curl get_method')
                 {
                     steps {
+                        script{
                     is_ok = check_get_curl(${path})
                     echo "the get method is working ${is_ok}"   
-                                 
+                        }  
                           }
                 }
                 stage('curl post_method')
                 {
                     steps{
+                        script{
                     is_post_ok == check_post_curl(${path})
                     echo "the post method is working ${is_post_ok}"
-                         }
+                         }}
                 }
                 stage('curl put_method')
                 {
                     steps{
+                        script{
                     is_put_ok == check_put_curl(${path})
                     echo "the put method is working ${is_post_ok}"
-                    }
+                    }}
                 }
 
             
