@@ -74,7 +74,7 @@ pipeline {
             namespace = 'dev'
             create_namespace(namespace)
             sh ""
-                helm upgrade --install --wait ${params.name} ${params.chart_name} -f ${params.file}  --namespace $namespace
+                script: 'helm upgrade --install --wait ${params.name} ${params.chart_name} -f ${params.file}  --namespace $namespace'
 
             }
         }
