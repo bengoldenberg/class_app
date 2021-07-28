@@ -6,7 +6,7 @@ echo "Creating namespace ${namespace} if needed"
 
 def check_get_curl()
 {
-result = curl -s -w "%{http_code}}\n" "${env.path}/school/students"
+result = curl -s -w %{http_code}}\n "${env.path}/school/students"
 script{
 if (result.contain(200)){
     ok = "Ok"}
@@ -18,7 +18,7 @@ echo ${ok}
 }
 def check_post_curl()
 {
-result = curl -d "{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}" -H "Content-Type: application/json" -s -w "%{http_code}}\n" "${env.path}/school/students"
+result = curl -d "{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}" -H "Content-Type: application/json" -s -w %{http_code}}\n "${env.path}/school/students"
 script{
 if (result.contain(200)){
     ok = "Ok"}
@@ -29,7 +29,7 @@ echo ${ok}
 }
 def check_put_curl()
 {
-result = curl -s -w "%{http_code}}\n" -X PUT "${env.path}/school/students/2/6"
+result = curl -s -w %{http_code}}\n -X PUT "${env.path}/school/students/2/6"
 script{
 if (result.contain(200)){
     ok = "Ok"}
