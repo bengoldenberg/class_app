@@ -93,14 +93,14 @@ pipeline {
                 stage('curl post_method')
                 {
                     steps{
-                    @is_post_ok == check_post_curl(${path})
+                    is_post_ok == check_post_curl(${path})
                     echo "the post method is working ${is_post_ok}"
                          }
                 }
                 stage('curl put_method')
                 {
                     steps{
-                    @is_put_ok == check_put_curl(${path})
+                    is_put_ok == check_put_curl(${path})
                     echo "the put method is working ${is_post_ok}"
                     }
                 }
