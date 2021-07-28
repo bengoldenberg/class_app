@@ -61,7 +61,9 @@ pipeline {
         stage("build image") {
             steps {
                 git branch: 'master',
-                 url: 'https://github.com/bengoldenberg/class_app.git' 
+                credentialsId: 'jenkins-key',
+                url: 'https://github.com/bengoldenberg/class_app.git' 
+                
                 sh "docker build -t 207457565/school:class -f Dockerfile ."
 
             }
