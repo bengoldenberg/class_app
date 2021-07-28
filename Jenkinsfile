@@ -48,7 +48,10 @@ echo ${ok}
 
 
 pipeline {
-    agent any
+    agent 
+    {
+        lable 'linux'
+    }
 
     environment {
         path = "http://a5d3e0b657cee4faf92a3cf47293ef03-2024788998.eu-west-2.elb.amazonaws.com"
