@@ -48,10 +48,8 @@ echo ${ok}
 
 
 pipeline {
-    agent 
-    {
-        label 'linux'
-    }
+    agent any
+   
 
     environment {
         path = "http://a5d3e0b657cee4faf92a3cf47293ef03-2024788998.eu-west-2.elb.amazonaws.com"
@@ -61,8 +59,8 @@ pipeline {
         stage("build image") {
             steps {
                 git branch: 'master',
-                credentialsId: 'jenkinsid',
-                url: 'git@github.com:bengoldenberg/class_app.git' 
+                credentialsId: 'gituser',
+                url: 'https://github.com/bengoldenberg/class_app.git' 
 
                 sh "docker build -t 207457565/school:class -f Dockerfile ."
 
