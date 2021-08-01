@@ -162,18 +162,12 @@ pipeline {
         
         stage('deploy production')
         {
-            input{
-                message "Proceed and deploy to Production?"
-                parameters{
-                choice(name: 'production', choices: ['yes', 'no'], description: 'do yo want to go production?') 
-                          }
-                 }
+            
             when {
-                 allOf{
+                
                     branch 'master' 
-                    "${params.production} == 'yes'"
-                      }   
-                    branch 'master'     
+                       
+                      
                  }
                 steps
                 {
