@@ -114,10 +114,7 @@ pipeline {
                 }
         }
         stage('Dev tests')
-        {
-           parallel{
-           
-            
+        {   
                 stage('Curl get_method')
                 {
                     steps {
@@ -149,9 +146,9 @@ pipeline {
             
 
                    }
-           }
-                
         }
+                
+        
         stage('cleanup dev')
         {
             
