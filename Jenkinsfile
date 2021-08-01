@@ -58,7 +58,7 @@ pipeline {
    
 
     environment {
-        path = "http://a5d3e0b657cee4faf92a3cf47293ef03-2024788998.eu-west-2.elb.amazonaws.com"
+        path = "http://a172c6135e0664f02b3d68cef4c1f1f7-264409871.eu-west-2.elb.amazonaws.com "
         REGISTRY = '207457565/school:class'
         
                 }
