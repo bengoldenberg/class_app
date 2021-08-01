@@ -115,10 +115,10 @@ pipeline {
         }
         stage('Dev tests')
         {
+            parallel {
             container('helm')
             {
             
-            parallel {
                 stage('Curl get_method')
                 {
                     steps {
@@ -150,6 +150,7 @@ pipeline {
             
 
                    }
+            
             }       
         }
         stage('cleanup dev')
@@ -176,7 +177,7 @@ pipeline {
                  }
             when {
                  allOf{
-                    branch 'master'
+                    branch 'master' ,
                     ${params.production} == 'yes'
                       }   
                  }
