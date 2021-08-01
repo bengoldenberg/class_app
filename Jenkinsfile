@@ -115,7 +115,7 @@ pipeline {
         }
         stage('Dev tests')
         {
-            parallel {
+            
             container('helm')
             {
             
@@ -151,7 +151,7 @@ pipeline {
 
                    }
             
-            }       
+                
         }
         stage('cleanup dev')
         {
