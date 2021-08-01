@@ -33,7 +33,7 @@ def create_new_students():
     Students.append(content)
     return jsonify(Students)
 #change student class
-@app.route("/school/students/<int:id>/<classes>", methods=['PUT'])
+@app.route("/school/class/<int:id>/<classes>", methods=['PUT'])
 def chnage_student_class(id,classes):
     i = 0
     for student in Students:

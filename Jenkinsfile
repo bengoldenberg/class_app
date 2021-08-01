@@ -48,25 +48,51 @@ echo ${ok}
 
 
 pipeline {
-    agent any
+    agent
+    {
+        kubernetes
+        {
+           yamlFile 'build_agent.yaml' 
+        }
+    }
    
 
     environment {
         path = "http://a5d3e0b657cee4faf92a3cf47293ef03-2024788998.eu-west-2.elb.amazonaws.com"
+        REGISTRY = '207457565/school:class'
         
                 }
     stages {
-        stage("build image") {
+        stage("build image") 
+        {
             steps {
                 git branch: 'master',
-                credentialsId: 'gituser',
-                url: 'https://github.com/bengoldenberg/class_app.git' 
+                credentialsId: 'github_registry',
+                url: 'https://github.com/bengoldenberg/class_app.git'
+                container('docker')
+                {
+                  sh "docker build -t ${REGISTRY} -f Dockerfile ."
+                }
 
-                sh "docker build -t 207457565/school:class -f Dockerfile ."
 
+                      }
+        }
+
+        stage('push image to repo')
+        {
+            steps
+            {
+                container('docker')
+                {
+                    withDockerRegistry([credentialsId: "${docker_hub_registry}", url: "207457565/school"])
+                     {
+                        sh "docker push ${REGISTRY}"
+                     }
+                }
             }
         }
-        stage('deploy to dev'){
+        stage('deploy to dev')
+        {
             input{
                 message "please insert the value file"
                 parameters{
@@ -75,15 +101,23 @@ pipeline {
                 string(name: 'file', defaultValue:'values.yaml',description: 'the value file of helm chart')}
                 }
             steps{
+              container('helm'){
+                
                 script{
-            namespace = 'dev'
-            create_namespace(namespace)
-            sh ""
-                script: 'helm upgrade --install --wait ${params.name} ${params.chart_name} -f ${params.file}  --namespace $namespace'
+                namespace = 'dev'
+                create_namespace(namespace)
+                    sh ""
+                    script: 'helm upgrade --install --wait ${params.name} ${params.chart_name} -f ${params.file}  --namespace $namespace'
 
-            }}
+                      }
+                                 }
+                }
         }
-        stage('Dev tests'){
+        stage('Dev tests')
+        {
+            container('helm')
+            {
+            
             parallel {
                 stage('Curl get_method')
                 {
@@ -91,7 +125,7 @@ pipeline {
                         script{
                     is_ok = check_get_curl(${path})
                     echo "the get method is working ${is_ok}"   
-                        }  
+                              }  
                           }
                 }
                 stage('curl post_method')
@@ -100,7 +134,8 @@ pipeline {
                         script{
                     is_post_ok == check_post_curl(${path})
                     echo "the post method is working ${is_post_ok}"
-                         }}
+                              }
+                         }
                 }
                 stage('curl put_method')
                 {
@@ -108,13 +143,59 @@ pipeline {
                         script{
                     is_put_ok == check_put_curl(${path})
                     echo "the put method is working ${is_post_ok}"
-                    }}
+                              }
+                         }
                 }
 
             
 
+                   }
+            }       
+        }
+        stage('cleanup dev')
+        {
+            steps
+            {
+                container('helm')
+                {
+                  script
+                  {
+                    sh ""
+                    script: 'helm delete --purge ${params.name}'
+                  }
+                }
             }
         }
+        stage('deploy production')
+        {
+            input{
+                message "Proceed and deploy to Production?"
+                parameters{
+                choice(name: 'production', choices: ['yes', 'no'], description: 'do yo want to go production?') 
+                          }
+                 }
+            when {
+                 allOf{
+                    branch 'master'
+                    ${params.production} == 'yes'
+                      }   
+                 }
+                steps
+                {
+                  container('helm'){
+                  
+                  script{
+                            namespace = 'production'
+                            create_namespace(namespace)
+                            sh ""   
+                            script: 'helm upgrade --install --wait ${params.name} ${params.chart_name} -f ${params.file}  --namespace $namespace'
+
+                        }
+                                   }  
+                
+            }
+        }
+
         
     }
 }

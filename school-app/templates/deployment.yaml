@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: school-app
+  name: {{ .Values.name }}
   labels:
     app: school
     env: {{ .Values.env }}

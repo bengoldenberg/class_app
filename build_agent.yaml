@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    job: agent
+spec:
+  containers:
+    - name: docker
+      image: docker:19.03
+      command:
+        - cat
+      tty: true
+      privileged: true
+      volumeMounts:
+        - name: dockersock
+          mountPath: /var/run/docker.sock
+    - name: helm
+      image: lachlanevenson/k8s-helm:v3.1.1
+      command:
+        - cat
+      tty: true
+  volumeClaimTemplates:
+    - metadata:
+         name : dockersock
+      spec:
+       accessModes:
+         - "ReadWriteOnce"
+       storageClassName: aws-storage
+       
