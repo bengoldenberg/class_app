@@ -115,9 +115,8 @@ pipeline {
         }
         stage('Dev tests')
         {
-           steps{ 
-            container('helm')
-            {
+           parallel{
+           
             
                 stage('Curl get_method')
                 {
@@ -145,7 +144,7 @@ pipeline {
                     echo "the put method is working ${is_post_ok}"
                               }
                          }
-                }
+                
 
             
 
@@ -155,8 +154,7 @@ pipeline {
         }
         stage('cleanup dev')
         {
-            steps
-            {
+            
                 container('helm')
                 {
                   script
