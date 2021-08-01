@@ -37,7 +37,8 @@ def check_put_curl(path)
 script{
 def result = sh (
                 returnStdout: true,
-                script: 'curl -s -w %{http_code}} -X PUT "${path}/school/students/2/6"')
+                script: 'curl -s -w %{http_code}} -X PUT "${path}/school/students/2/6"'
+                )
 if (result.contain(200)){
     ok = "Ok"}
 else{
@@ -161,17 +162,8 @@ pipeline {
         }
         stage('deploy production')
         {
-            input{
-                message "Proceed and deploy to Production?"
-                parameters{
-                choice(name: 'production', choices: ['yes', 'no'], description: 'do yo want to go production?') 
-                          }
-                 }
             when {
-                 allOf{
-                    branch 'master' 
-                    "${params.production} == 'yes'"
-                      }   
+                    branch 'master'   
                  }
                 steps
                 {
