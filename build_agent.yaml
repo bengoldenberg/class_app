@@ -19,7 +19,7 @@ spec:
       command:
         - cat
       tty: true
-  volumeClaimTemplates:
+volumeClaimTemplates:
     - metadata:
          name : dockersock
       spec:
