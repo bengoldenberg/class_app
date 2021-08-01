@@ -112,9 +112,7 @@ pipeline {
                       }
                                  }
                 }
-        }
-        stage('Dev tests')
-        {   
+        }  
                 stage('Curl get_method')
                 {
                     steps {
@@ -146,12 +144,9 @@ pipeline {
             
 
                    }
-        }
                 
-        
         stage('cleanup dev')
         {
-            
                 container('helm')
                 {
                   script
