@@ -115,7 +115,7 @@ pipeline {
         }
         stage('Dev tests')
         {
-            
+           steps{ 
             container('helm')
             {
             
@@ -150,7 +150,7 @@ pipeline {
             
 
                    }
-            
+           }
                 
         }
         stage('cleanup dev')
@@ -177,8 +177,8 @@ pipeline {
                  }
             when {
                  allOf{
-                    branch 'master' ,
-                    ${params.production} == 'yes'
+                    branch 'master' 
+                    "${params.production} == 'yes'"
                       }   
                  }
                 steps
