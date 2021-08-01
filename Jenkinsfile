@@ -147,6 +147,7 @@ pipeline {
                 
         stage('cleanup dev')
         {
+            steps{
                 container('helm')
                 {
                   script
@@ -156,6 +157,7 @@ pipeline {
                   }
                 }
             }
+                 }
         }
         stage('deploy production')
         {
