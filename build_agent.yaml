@@ -25,5 +25,5 @@ spec:
       spec:
        accessModes:
          - "ReadWriteOnce"
-       storageClassName: aws-storage
+       storageClassName: storage-devops-tools
        
