@@ -39,21 +39,21 @@ node("jenkins-slave"){
 
                 stage('Curl get_method')
                 {
-                    is_ok == check_get_curl("${path}")
+                    is_ok = check_get_curl("${path}")
                     echo "the get method is working ${is_ok}"   
                                 
                 }
                 stage('curl post_method')
                 {
 
-                    is_post_ok == check_post_curl("${path}")
+                    is_post_ok = check_post_curl("${path}")
                     echo "the post method is working ${is_post_ok}"
                               
                 }
                 stage('curl put_method')
                 {
                    
-                    is_put_ok == check_put_curl("${path}")
+                    is_put_ok = check_put_curl("${path}")
                     echo "the put method is working ${is_post_ok}"                       
 
                 }
