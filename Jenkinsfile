@@ -29,13 +29,33 @@ node("jenkins-slave"){
             node("jenkins-helm")
             {
                 namespace = 'dev'
-                create_namespace(namespace)
                 container('helm')
                 {
                 sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
                 }
             }
         }
+
+                stage('Curl get_method')
+                {
+                    is_ok = check_get_curl(${path})
+                    echo "the get method is working ${is_ok}"   
+                                
+                }
+                stage('curl post_method')
+                {
+
+                    is_post_ok == check_post_curl(${path})
+                    echo "the post method is working ${is_post_ok}"
+                              
+                }
+                stage('curl put_method')
+                {
+                   
+                    is_put_ok == check_put_curl(${path})
+                    echo "the put method is working ${is_post_ok}"                       
+
+                }
     }
 
     stage("Deploy to Prod"){
@@ -47,12 +67,12 @@ node("jenkins-slave"){
 
 
 
-def create_namespace(namespace)
-{
-    container('kubectl')
-    {
-        echo "Creating namespace ${namespace} if needed"
+// def create_namespace(namespace)
+// {
+//     container('kubectl')
+//     {
+//         echo "Creating namespace ${namespace} if needed"
 
-        sh "[ ! -z \"\$(kubectl get ns ${namespace} -o name 2>/dev/null)\" ] || kubectl create ns ${namespace}"
-    }
-}
+//         sh "[ ! -z \"\$(kubectl get ns ${namespace} -o name 2>/dev/null)\" ] || kubectl create ns ${namespace}"
+//     }
+// }
