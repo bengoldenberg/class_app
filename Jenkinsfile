@@ -74,7 +74,7 @@ def check_get_curl(path)
         ok = "Ok"}
     else{
         ok = "not OK"} 
-    return "$(ok)"   
+    return "${ok}"   
 }
 
 def check_post_curl(path)
@@ -87,7 +87,7 @@ def check_post_curl(path)
         ok = "Ok"}
     else{
         ok = "not OK"} 
-    return "$(ok)"    
+    return "${ok}"    
 }
 
 def check_put_curl(path)
@@ -101,7 +101,7 @@ def check_put_curl(path)
         ok = "Ok"}
     else{
         ok = "not OK"} 
-    return "$(ok)"     
+    return "${ok}"     
 }
 
 
