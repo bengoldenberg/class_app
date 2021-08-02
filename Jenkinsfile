@@ -16,7 +16,7 @@ node("jenkins-slave"){
         container('docker') {
             checkout scm
             sh "docker build -t ${registry} -f Dockerfile ."
-            withDockerRegistry([credentialsId: "docker_hub_registry", url: "207457565/school"])
+            withDockerRegistry([credentialsId: "docker_hub_registry", url: "docker.io"])
             {
                 sh "docker push ${REGISTRY}"
             }
@@ -30,7 +30,9 @@ node("jenkins-slave"){
             {
                 container('helm')
                 {
-                    
+                namespace = 'dev'
+                create_namespace(namespace)
+                sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
                 }
             }
         }
@@ -43,3 +45,10 @@ node("jenkins-slave"){
 
 
 
+
+
+def create_namespace(namespace){
+echo "Creating namespace ${namespace} if needed"
+
+    sh "[ ! -z \"\$(kubectl get ns ${namespace} -o name 2>/dev/null)\" ] || kubectl create ns ${namespace}"
+}
