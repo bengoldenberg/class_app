@@ -16,7 +16,7 @@ node("jenkins-slave"){
         container('docker') {
             checkout scm
             sh "docker build -t ${registry} -f Dockerfile ."
-            withDockerRegistry([credentialsId: "docker_hub_registry", url: "docker.io"])
+            withDockerRegistry([credentialsId: "docker_hub_registry"])
             {
                 sh "docker push ${REGISTRY}"
             }
