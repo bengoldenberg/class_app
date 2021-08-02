@@ -1,3 +1,5 @@
 node("jenkins-slave"){
-    sh "docker ps"
+    container('docker') {
+        sh "docker ps"
+    }
 }
