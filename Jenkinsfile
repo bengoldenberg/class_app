@@ -1,5 +1,5 @@
 node("jenkins-slave"){
-    path = "http://a172c6135e0664f02b3d68cef4c1f1f7-264409871.eu-west-2.elb.amazonaws.com "
+    path = "a9e890b95691f48ff976655669e48df7-1804216955.eu-west-2.elb.amazonaws.com "
     registry = '207457565/school:class'
     properties([
         parameters(
@@ -39,21 +39,21 @@ node("jenkins-slave"){
 
                 stage('Curl get_method')
                 {
-                    is_ok = check_get_curl(${path})
+                    is_ok = check_get_curl("${path}")
                     echo "the get method is working ${is_ok}"   
                                 
                 }
                 stage('curl post_method')
                 {
 
-                    is_post_ok == check_post_curl(${path})
+                    is_post_ok == check_post_curl("${path}")
                     echo "the post method is working ${is_post_ok}"
                               
                 }
                 stage('curl put_method')
                 {
                    
-                    is_put_ok == check_put_curl(${path})
+                    is_put_ok == check_put_curl("${path}")
                     echo "the put method is working ${is_post_ok}"                       
 
                 }
@@ -64,6 +64,45 @@ node("jenkins-slave"){
     }
 }
 
+def check_get_curl(path)
+{
+    def result = sh (
+                    returnStdout: true,
+                    script: 'curl -s -w %{http_code} "${path}/school/students"')
+
+    if (result.contain(200)){
+        ok = "Ok"}
+    else{
+        ok = "not OK"} 
+    echo "${ok}"   
+}
+
+def check_post_curl(path)
+{
+
+    def result = sh (
+                    returnStdout: true,
+                    script: 'curl -d "{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}" -H "Content-Type: application/json" -s -w %{http_code} "${path}/school/students"')
+    if (result.contain(200)){
+        ok = "Ok"}
+    else{
+        ok = "not OK"} 
+    echo "${ok}"   
+}
+
+def check_put_curl(path)
+{
+
+    def result = sh (
+                    returnStdout: true,
+                    script: 'curl -s -w %{http_code} -X PUT "${path}/school/students/2/6"'
+                    )
+    if (result.contain(200)){
+        ok = "Ok"}
+    else{
+        ok = "not OK"} 
+    echo "${ok}"   
+}
 
 
 
