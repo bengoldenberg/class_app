@@ -1,5 +1,20 @@
 node("jenkins-slave"){
-    container('docker') {
-        sh "docker ps"
+    checkout scm
+    sh "ls"
+    stage("Build"){
+        container('docker') {
+            sh "docker ps"
+        }
+    }
+
+    stage("Test"){
+        
+    }
+
+    stage("Deploy to Prod"){
+        
     }
 }
+
+
+
