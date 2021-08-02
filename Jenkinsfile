@@ -39,7 +39,7 @@ node("jenkins-slave"){
 
                 stage('Curl get_method')
                 {
-                    is_ok = check_get_curl("${path}")
+                    is_ok == check_get_curl("${path}")
                     echo "the get method is working ${is_ok}"   
                                 
                 }
@@ -74,7 +74,7 @@ def check_get_curl(path)
         ok = "Ok"}
     else{
         ok = "not OK"} 
-    echo "${ok}"   
+    return "$(ok)"   
 }
 
 def check_post_curl(path)
@@ -87,7 +87,7 @@ def check_post_curl(path)
         ok = "Ok"}
     else{
         ok = "not OK"} 
-    echo "${ok}"   
+    return "$(ok)"    
 }
 
 def check_put_curl(path)
@@ -101,7 +101,7 @@ def check_put_curl(path)
         ok = "Ok"}
     else{
         ok = "not OK"} 
-    echo "${ok}"   
+    return "$(ok)"     
 }
 
 
