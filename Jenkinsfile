@@ -82,7 +82,7 @@ def check_post_curl(path)
 
     def result = sh (
                     returnStdout: true,
-                    script: "curl -d '{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}' -H 'Content-Type: application/json' -s -w %{http_code} ${path}/school/students")
+                    script: "curl -d "{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}" -H 'Content-Type: application/json' -s -w %{http_code} ${path}/school/students")
     if (result.contains('200')){
         ok = "Ok"}
     else{
