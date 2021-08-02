@@ -1,9 +1,9 @@
-FROM python:3.7
+FROM  207457565/flask:latest
 
 COPY . /project
 
 WORKDIR /project
 
-RUN  pip install -r requiremnts.txt
+# RUN  pip install -r requiremnts.txt
 
 ENTRYPOINT ["python", "main.py"]
