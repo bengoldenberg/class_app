@@ -26,11 +26,14 @@ node("jenkins-slave"){
     stage("test"){
         stage("deploy to dev")
         {
-            container('helm'){
-
-                             }
+            node("jenkins-helm")
+            {
+                container('helm')
+                {
+                    
+                }
+            }
         }
-        
     }
 
     stage("Deploy to Prod"){
