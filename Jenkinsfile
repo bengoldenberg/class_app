@@ -28,10 +28,10 @@ node("jenkins-slave"){
         {
             node("jenkins-helm")
             {
-                container('helm')
-                {
                 namespace = 'dev'
                 create_namespace(namespace)
+                container('helm')
+                {
                 sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
                 }
             }
@@ -47,8 +47,12 @@ node("jenkins-slave"){
 
 
 
-def create_namespace(namespace){
-echo "Creating namespace ${namespace} if needed"
+def create_namespace(namespace)
+{
+    container('kubectl')
+    {
+        echo "Creating namespace ${namespace} if needed"
 
-    sh "[ ! -z \"\$(kubectl get ns ${namespace} -o name 2>/dev/null)\" ] || kubectl create ns ${namespace}"
+        sh "[ ! -z \"\$(kubectl get ns ${namespace} -o name 2>/dev/null)\" ] || kubectl create ns ${namespace}"
+    }
 }
