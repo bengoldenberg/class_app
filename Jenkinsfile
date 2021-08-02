@@ -1,3 +1,3 @@
-node("docker"){
-    sh "hostname"
+node("jenkins-slave"){
+    sh "docker ps"
 }
