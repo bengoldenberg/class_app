@@ -1,5 +1,5 @@
 node("jenkins-slave"){
-    path = "a9e890b95691f48ff976655669e48df7-1804216955.eu-west-2.elb.amazonaws.com "
+    path = "a9e890b95691f48ff976655669e48df7-1804216955.eu-west-2.elb.amazonaws.com"
     registry = '207457565/school:class'
     properties([
         parameters(
@@ -68,7 +68,7 @@ def check_get_curl(path)
 {
     def result = sh (
                     returnStdout: true,
-                    script: 'curl -s -w %{http_code} "${path}/school/students"')
+                    script: "curl -s -w %{http_code} ${path}/school/students")
 
     if (result.contain(200)){
         ok = "Ok"}
@@ -95,7 +95,7 @@ def check_put_curl(path)
 
     def result = sh (
                     returnStdout: true,
-                    script: 'curl -s -w %{http_code} -X PUT "${path}/school/students/2/6"'
+                    script: "curl -s -w %{http_code} -X PUT ${path}/school/students/2/6"
                     )
     if (result.contain(200)){
         ok = "Ok"}
