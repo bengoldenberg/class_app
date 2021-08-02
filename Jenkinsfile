@@ -4,8 +4,8 @@ node("jenkins-slave"){
     properties([
         parameters(
             [
-                string(name: 'name',description: 'the name you want to give'),
-                string(name: 'chart_name', description:'the chart name'),
+                string(name: 'name',defaultValue:'school',description: 'the name you want to give'),
+                string(name: 'chart_name',defaultValue:'school-app', description:'the chart name'),
                 string(name: 'file', defaultValue:'values.yaml',description: 'the value file of helm chart')
             ]
         )
