@@ -15,8 +15,11 @@ node("jenkins-slave"){
     stage("Build"){
         container('docker') {
             checkout scm
-            // sleep 9999999
             sh "docker build -t ${registry} -f Dockerfile ."
+            withDockerRegistry([credentialsId: "${docker_hub_registry}", url: "207457565/school"])
+            {
+                sh "docker push ${REGISTRY}"
+            }
         }
     }
 

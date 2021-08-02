@@ -9,7 +9,7 @@ def check_get_curl(path)
 script{
 def result = sh (
                 returnStdout: true,
-                script: 'curl -s -w %{http_code}} "${path}/school/students"')
+                script: 'curl -s -w %{http_code} "${path}/school/students"')
 
 if (result.contain(200)){
     ok = "Ok"}
@@ -24,7 +24,7 @@ def check_post_curl(path)
 script{
 def result = sh (
                 returnStdout: true,
-                script: 'curl -d "{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}" -H "Content-Type: application/json" -s -w %{http_code}} "${path}/school/students"')
+                script: 'curl -d "{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}" -H "Content-Type: application/json" -s -w %{http_code} "${path}/school/students"')
 if (result.contain(200)){
     ok = "Ok"}
 else{
@@ -37,7 +37,7 @@ def check_put_curl(path)
 script{
 def result = sh (
                 returnStdout: true,
-                script: 'curl -s -w %{http_code}} -X PUT "${path}/school/students/2/6"'
+                script: 'curl -s -w %{http_code} -X PUT "${path}/school/students/2/6"'
                 )
 if (result.contain(200)){
     ok = "Ok"}
@@ -57,7 +57,6 @@ pipeline {
         }
     }
    
-
     environment {
         path = "http://a172c6135e0664f02b3d68cef4c1f1f7-264409871.eu-west-2.elb.amazonaws.com "
         REGISTRY = '207457565/school:class'
@@ -74,8 +73,6 @@ pipeline {
                 {
                   sh "docker build -t ${REGISTRY} -f Dockerfile ."
                 }
-
-
                       }
         }
 
