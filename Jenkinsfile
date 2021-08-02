@@ -6,7 +6,7 @@ node("jenkins-slave"){
             [
                 string(name: 'name',defaultValue:'school',description: 'the name you want to give'),
                 string(name: 'chart_name',defaultValue:'school-app', description:'the chart name'),
-                string(name: 'file', defaultValue:'values.yaml',description: 'the value file of helm chart')
+                string(name: 'file', defaultValue:'school-app/values.yaml',description: 'the value file of helm chart')
             ]
         )
     ])  
