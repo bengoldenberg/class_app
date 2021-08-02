@@ -16,14 +16,20 @@ node("jenkins-slave"){
         container('docker') {
             checkout scm
             sh "docker build -t ${registry} -f Dockerfile ."
-            withDockerRegistry([credentialsId: "${docker_hub_registry}", url: "207457565/school"])
+            withDockerRegistry([credentialsId: "docker_hub_registry", url: "207457565/school"])
             {
                 sh "docker push ${REGISTRY}"
             }
         }
     }
 
-    stage("Test"){
+    stage("test"){
+        stage("deploy to dev")
+        {
+            container('helm'){
+
+                             }
+        }
         
     }
 
