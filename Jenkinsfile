@@ -70,7 +70,7 @@ def check_get_curl(path)
                     returnStdout: true,
                     script: "curl -s -w %{http_code} ${path}/school/students")
 
-    if (result.contain(200)){
+    if (result.contains('200')){
         ok = "Ok"}
     else{
         ok = "not OK"} 
@@ -83,7 +83,7 @@ def check_post_curl(path)
     def result = sh (
                     returnStdout: true,
                     script: 'curl -d "{"firstname" :"ben", "lastname": "goldenberg", "id": 2, "class": "D2"}" -H "Content-Type: application/json" -s -w %{http_code} "${path}/school/students"')
-    if (result.contain(200)){
+    if (result.contains('200')){
         ok = "Ok"}
     else{
         ok = "not OK"} 
@@ -97,7 +97,7 @@ def check_put_curl(path)
                     returnStdout: true,
                     script: "curl -s -w %{http_code} -X PUT ${path}/school/students/2/6"
                     )
-    if (result.contain(200)){
+    if (result.contains('200')){
         ok = "Ok"}
     else{
         ok = "not OK"} 
