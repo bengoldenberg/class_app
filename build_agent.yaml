@@ -19,11 +19,4 @@ spec:
       command:
         - cat
       tty: true
-volumeClaimTemplates:
-    - metadata:
-         name : dockersock
-      spec:
-       accessModes:
-         - "ReadWriteOnce"
-       storageClassName: storage-devops-tools
        
