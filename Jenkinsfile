@@ -31,6 +31,7 @@ node("jenkins-slave"){
                 namespace = 'dev'
                 container('helm')
                 {
+                checkout scm
                 sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
                 }
             }
