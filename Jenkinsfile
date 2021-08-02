@@ -18,7 +18,7 @@ node("jenkins-slave"){
             sh "docker build -t ${registry} -f Dockerfile ."
             withDockerRegistry([credentialsId: "docker_hub_registry"])
             {
-                sh "docker push ${REGISTRY}"
+                sh "docker push ${registry}"
             }
         }
     }
