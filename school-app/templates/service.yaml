@@ -12,4 +12,4 @@ spec:
     name: school
   selector:
     app: school
-  type: LoadBalancer
+  type: NodePort
