@@ -201,7 +201,7 @@ alertmanager:
 
     ## alertmanager data Persistent Volume size
     ##
-    size: 2Gi
+    size: 5Gi
 
     ## alertmanager data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>
@@ -313,7 +313,7 @@ alertmanager:
     servicePort: 80
     # nodePort: 30000
     sessionAffinity: None
-    type: LoadBalancer 
+    type: NodePort
 
 ## Monitors ConfigMap changes and POSTs to a URL
 ## Ref: https://github.com/jimmidyson/configmap-reload
@@ -529,7 +529,7 @@ nodeExporter:
 
     # Exposed as a headless service:
     # https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
-    #clusterIP: None
+    clusterIP: ""
 
     ## List of IP addresses at which the node-exporter service is available
     ## Ref: https://kubernetes.io/docs/user-guide/services/#external-ips
@@ -540,7 +540,7 @@ nodeExporter:
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
     servicePort: 9100
-    type: LoadBalancer 
+    type: NodePort
 
 server:
   ## Prometheus server container name
@@ -926,7 +926,7 @@ server:
     loadBalancerSourceRanges: []
     servicePort: 80
     sessionAffinity: None
-    type: LoadBalancer 
+    type: NodePort
 
     ## Enable gRPC port on service to allow auto discovery with thanos-querier
     gRPC:
@@ -1088,7 +1088,7 @@ pushgateway:
     loadBalancerIP: ""
     loadBalancerSourceRanges: []
     servicePort: 9091
-    type: LoadBalancer 
+    type: NodePort
 
   ## pushgateway Deployment Strategy type
   # strategy:
@@ -1098,7 +1098,7 @@ pushgateway:
     ## If true, pushgateway will create/use a Persistent Volume Claim
     ## If false, use emptyDir
     ##
-    enabled: false
+    enabled: true
 
     ## pushgateway data Persistent Volume access modes
     ## Must match those of existing PV or dynamic provisioner
@@ -1122,7 +1122,7 @@ pushgateway:
 
     ## pushgateway data Persistent Volume size
     ##
-    size: 2Gi
+    size: 5Gi
 
     ## pushgateway data Persistent Volume Storage Class
     ## If defined, storageClassName: <storageClass>

@@ -1,5 +1,5 @@
 node("jenkins-slave"){
-    path = "k8s-dev-schoolin-35adf56be0-1723870611.eu-west-2.elb.amazonaws.com"
+    path = "k8s-dev-schoolin-35adf56be0-286533567.eu-west-2.elb.amazonaws.com"
     registry = '207457565/school:class'
     properties([
         parameters(
@@ -103,7 +103,7 @@ def check_post_curl(path)
 
     def result = sh (
                     returnStdout: true,
-                    script: "curl -d '{'firstname' :'ben', 'lastname': 'goldenberg', 'id': 2, 'class': 'D2'}' -H 'Content-Type: application/json' -s -w %{http_code} ${path}/school/students")
+                    script: "curl -d@content.txt -H 'Content-Type: application/json' -s -w %{http_code} ${path}/school/students")
     if (result.contains('200')){
         ok = "Ok"}
     else{
