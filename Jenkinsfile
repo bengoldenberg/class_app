@@ -65,7 +65,7 @@ node("jenkins-slave"){
                     {
                         container('helm')
                         {
-                          sh "helm delete ${name}"
+                          sh "helm uninstall ${name}"
                         }
                     }
                 }
