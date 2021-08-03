@@ -73,7 +73,7 @@ node("jenkins-slave"){
 
     stage("Deploy to Prod")
     {
-        node('jenkins-slave')
+        node('jenkins-helm')
         {
             container('helm')
             {
