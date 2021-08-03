@@ -13,6 +13,11 @@ Students=[
         "class" : 'D3'
     }
 ]
+
+@app.route("/")
+def main():
+    pass
+
 #get all students
 @app.route("/school/students", methods=['GET'])
 def get_students():
