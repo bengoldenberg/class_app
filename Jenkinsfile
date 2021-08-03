@@ -75,9 +75,10 @@ node("jenkins-slave"){
     {
         node('jenkins-helm')
         {
+            namespace = 'prod'
             container('helm')
             {
-                namespace = 'prod'
+                checkout scm
                 sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
             }
         }     
