@@ -65,7 +65,7 @@ node("jenkins-slave"){
                     {
                         container('helm')
                         {
-                          sh "helm delete --purge ${name}"
+                          sh "helm delete ${name}"
                         }
                     }
                 }
@@ -115,7 +115,7 @@ def check_put_curl(path)
 
     def result = sh (
                     returnStdout: true,
-                    script: "curl -s -w %{http_code} -X PUT ${path}/school/students/2/6"
+                    script: "curl -s -w %{http_code} -X PUT ${path}/school/students/1/6"
                     )
     if (result.contains('200')){
         ok = "Ok"}
