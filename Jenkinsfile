@@ -23,7 +23,8 @@ node("jenkins-slave"){
         }
     }
 
-    stage("test"){
+    stage("test")
+    {
         stage("deploy to dev")
         {
             node("jenkins-helm")
@@ -57,10 +58,29 @@ node("jenkins-slave"){
                     echo "the put method is working ${is_post_ok}"                       
 
                 }
+
+                stage('cleanup dev')
+                {
+                    node('jenkins-slave')
+                    {
+                        container('helm')
+                        {
+                          sh "helm delete --purge ${name}"
+                        }
+                    }
+                }
     }
 
-    stage("Deploy to Prod"){
-        
+    stage("Deploy to Prod")
+    {
+        node('jenkins-slave')
+        {
+            container('helm')
+            {
+                namespace = 'prod'
+                sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
+            }
+        }     
     }
 }
 
