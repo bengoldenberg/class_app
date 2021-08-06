@@ -1,4 +1,4 @@
-FROM  207457565/school:latest
+FROM  207457565/flask:latest
 
 COPY . /project
 
