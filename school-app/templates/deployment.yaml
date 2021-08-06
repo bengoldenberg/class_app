@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
       - name: school
-        image: 207457565/school:class
+        image: 207457565/school:latest
         ports:
         - containerPort: 80
