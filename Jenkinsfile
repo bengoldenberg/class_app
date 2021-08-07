@@ -23,41 +23,41 @@ node("jenkins-slave"){
         }
     }
 
-    stage("test")
-    {
-        stage("deploy to dev")
-        {
-            node("jenkins-helm")
-            {
-                namespace = 'dev'
-                container('helm')
-                {
-                checkout scm
-                sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
-                }
-            }
-        }
+    // stage("test")
+    // {
+    //     stage("deploy to dev")
+    //     {
+    //         node("jenkins-helm")
+    //         {
+    //             namespace = 'dev'
+    //             container('helm')
+    //             {
+    //             checkout scm
+    //             sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
+    //             }
+    //         }
+    //     }
 
-                stage('Curl get_method')
-                {
-                    is_ok = check_get_curl("${path}")
-                    echo "the get method is working ${is_ok}"   
+    //             stage('Curl get_method')
+    //             {
+    //                 is_ok = check_get_curl("${path}")
+    //                 echo "the get method is working ${is_ok}"   
                                 
-                }
-                stage('curl post_method')
-                {
+    //             }
+    //             stage('curl post_method')
+    //             {
 
-                    is_post_ok = check_post_curl("${path}")
-                    echo "the post method is working ${is_post_ok}"
+    //                 is_post_ok = check_post_curl("${path}")
+    //                 echo "the post method is working ${is_post_ok}"
                               
-                }
-                stage('curl put_method')
-                {
+    //             }
+    //             stage('curl put_method')
+    //             {
                    
-                    is_put_ok = check_put_curl("${path}")
-                    echo "the put method is working ${is_post_ok}"                       
+    //                 is_put_ok = check_put_curl("${path}")
+    //                 echo "the put method is working ${is_post_ok}"                       
 
-                }
+    //             }
 
                 stage('cleanup dev')
                 {
