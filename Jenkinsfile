@@ -1,4 +1,4 @@
-node("jenkins-slave"){
+node("jenkins-docker"){
     path = "k8s-default-schoolin-38e878bd75-706306997.eu-west-2.elb.amazonaws.com"
     registry = '207457565/school:latest'
     properties([
