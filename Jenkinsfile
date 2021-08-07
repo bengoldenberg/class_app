@@ -23,20 +23,20 @@ node("jenkins-slave"){
         }
     }
 
-    // stage("test")
-    // {
-    //     stage("deploy to dev")
-    //     {
-    //         node("jenkins-helm")
-    //         {
-    //             namespace = 'dev'
-    //             container('helm')
-    //             {
-    //             checkout scm
-    //             sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
-    //             }
-    //         }
-    //     }
+     stage("test")
+     {
+        stage("deploy to dev")
+        {
+            node("jenkins-helm")
+            {
+                namespace = 'dev'
+                container('helm')
+                {
+                checkout scm
+                sh "helm upgrade --install --wait ${name} ${chart_name} -f ${file}  --namespace ${namespace}"
+                }
+            }
+        }
 
     //             stage('Curl get_method')
     //             {
