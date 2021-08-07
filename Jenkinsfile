@@ -1,6 +1,6 @@
 node("jenkins-slave"){
-    path = "k8s-dev-schoolin-35adf56be0-889843949.eu-west-2.elb.amazonaws.com"
-    registry = '207457565/school:class'
+    path = "k8s-default-schoolin-38e878bd75-706306997.eu-west-2.elb.amazonaws.com"
+    registry = '207457565/school:latest'
     properties([
         parameters(
             [
